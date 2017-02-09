@@ -1,4 +1,4 @@
-package ru.stqa.test_courses.addressbook;
+package ru.stqa.test_courses.addressbook.model;
 
 public class ContactData {
     private final String name;
