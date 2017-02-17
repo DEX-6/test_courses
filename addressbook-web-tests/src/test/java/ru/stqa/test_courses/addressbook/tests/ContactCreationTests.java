@@ -10,21 +10,11 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.*;
 import ru.stqa.test_courses.addressbook.model.ContactData;
 
-public class ContactCreationTests {
+public class ContactCreationTests extends TestBase{
     FirefoxDriver wd;
 
-    @BeforeMethod
-    public void setUp() throws Exception {
-        wd = new FirefoxDriver();
-        wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-
-        wd.get("http://localhost/addressbook/");
-
-        login("admin", "secret");
-    }
-
     @Test
-    public void ContactCreationTests() {
+    public void testContactCreation() {
         goToNewContactPage();
         fillContactForm(new ContactData("Денис", "Станиславович", "Воронцов", "DEX-6", "Космический Мозгоед", "планета Земля", "+79856405255", "dex-6@mail.ru"));
         submitContactCreation();
@@ -78,19 +68,5 @@ public class ContactCreationTests {
         wd.findElement(By.name("pass")).clear();
         wd.findElement(By.name("pass")).sendKeys(password);
         wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
-    }
-
-    @AfterMethod
-    public void tearDown() {
-        wd.quit();
-    }
-
-    public static boolean isAlertPresent(FirefoxDriver wd) {
-        try {
-            wd.switchTo().alert();
-            return true;
-        } catch (NoAlertPresentException e) {
-            return false;
-        }
     }
 }
