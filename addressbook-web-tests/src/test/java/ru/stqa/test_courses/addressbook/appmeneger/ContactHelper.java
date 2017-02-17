@@ -1,6 +1,8 @@
 package ru.stqa.test_courses.addressbook.appmeneger;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import ru.stqa.test_courses.addressbook.model.ContactData;
 
 /**
  * Created by i-ru on 18.02.2017.
@@ -8,5 +10,20 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class ContactHelper extends HelperBase {
     public ContactHelper(FirefoxDriver wd) {
         super(wd);
+    }
+
+    public void fillContactForm(ContactData contactData) {
+        type(By.name("firstname"), contactData.getName());
+        type(By.name("middlename"), contactData.getMiddleName());
+        type(By.name("lastname"), contactData.getLastName());
+        type(By.name("nickname"), contactData.getNickName());
+        type(By.name("company"), contactData.getCompany());
+        type(By.name("address"), contactData.getAddress());
+        type(By.name("work"), contactData.getPhone());
+        type(By.name("email"), contactData.getEmail());
+    }
+
+    public void submitContactCreation() {
+        click(By.xpath("//div[@id='content']/form/input[21]"));
     }
 }
