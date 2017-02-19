@@ -21,4 +21,5 @@ public class TestBase {
         app.stop();
     }
 
+    // TODO: 18.02.2017 Добит урок 12
 }
