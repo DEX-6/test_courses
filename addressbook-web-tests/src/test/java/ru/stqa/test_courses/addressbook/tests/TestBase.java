@@ -10,7 +10,7 @@ import ru.stqa.test_courses.addressbook.appmeneger.ApplicationManager;
  */
 public class TestBase {
 
-    protected final ApplicationManager app = new ApplicationManager(BrowserType.IE);
+    protected final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
 
     @BeforeMethod
     public void setUp() throws Exception {
@@ -22,5 +22,5 @@ public class TestBase {
         app.stop();
     }
 
-    // TODO: 18.02.2017 Добит урок 3.4
+    // TODO: 18.02.2017 Добит урок 3.8
 }
