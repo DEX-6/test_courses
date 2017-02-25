@@ -1,9 +1,7 @@
 package ru.stqa.test_courses.addressbook.appmeneger;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.test_courses.addressbook.model.ContactData;
@@ -55,5 +53,24 @@ public class ContactHelper extends HelperBase {
 
     public void acceptAlert() {
         wd.switchTo().alert().accept();
+    }
+
+    public void returnToHomePage() {
+        click(By.linkText("home page"));
+    }
+
+    public void initCreateContact() {
+        click(By.linkText("add new"));
+    }
+
+    public void createContact(ContactData contact) {
+        initCreateContact();
+        fillContactForm(contact, true);
+        submitContactCreation();
+        returnToHomePage();
+    }
+
+    public boolean isThereAContact() {
+        return isElementPresent(By.name("selected[]"));
     }
 }
