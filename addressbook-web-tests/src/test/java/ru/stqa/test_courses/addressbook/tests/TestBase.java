@@ -22,5 +22,5 @@ public class TestBase {
         app.stop();
     }
 
-    // TODO: 18.02.2017 Добит урок 3.8
+    // TODO: 18.02.2017 Добит урок 3.10
 }
