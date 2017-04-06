@@ -2,9 +2,14 @@ package ru.stqa.test_courses.addressbook.appmeneger;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.test_courses.addressbook.model.ContactData;
+import ru.stqa.test_courses.addressbook.model.GroupData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by i-ru on 18.02.2017.
@@ -23,6 +28,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("address"), contactData.getAddress());
         type(By.name("work"), contactData.getPhone());
         type(By.name("email"), contactData.getEmail());
+
 
         if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
@@ -77,5 +83,17 @@ public class ContactHelper extends HelperBase {
 
     public int getContactCount() {
         return wd.findElements(By.name("selected[]")).size();
+    }
+
+    public List<ContactData> getContactList() {
+        List <ContactData> contacts = new ArrayList<>();
+        List<WebElement> rows = wd.findElements(By.xpath(".//*[@id='maintable']/tbody/tr[td]"));
+
+        for (WebElement row : rows) {
+            ContactData contact = new ContactData(row.findElement(By.xpath("//td[3]")).getText(), null, row.findElement(By.xpath("//td[2]")).getText(), null, null, null, null, null, null);
+            contacts.add(contact);
+        }
+
+        return  contacts;
     }
 }
