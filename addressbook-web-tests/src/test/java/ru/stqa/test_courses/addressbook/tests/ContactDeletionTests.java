@@ -12,18 +12,20 @@ import java.util.List;
 public class ContactDeletionTests extends TestBase {
 
     @Test
-    public void testContactDeletion(){
+    public void testContactDeletion() {
         app.getNavigationHelper().goToHomePage();
         if (!app.getContactHelper().isThereAContact()) {
             app.getContactHelper().createContact(new ContactData("Денис", "Станиславович", "Воронцов", "DEX-6", "Космический Мозгоед", "планета Земля", "+79856405255", "dex-6@mail.ru", "test1"));
         }
-        List <ContactData> before = app.getContactHelper().getContactList();
+        List<ContactData> before = app.getContactHelper().getContactList();
         app.getContactHelper().selectContact(before.size() - 1);
         app.getContactHelper().deleteSelectedContacts();
         app.getContactHelper().acceptAlert();
         app.getNavigationHelper().goToHomePage();
-        List <ContactData> after = app.getContactHelper().getContactList();
+        List<ContactData> after = app.getContactHelper().getContactList();
         Assert.assertEquals(after.size(), before.size() - 1);
-    }
 
+        before.remove(before.size() - 1);
+        Assert.assertEquals(before, after);
+    }
 }

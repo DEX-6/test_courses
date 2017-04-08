@@ -86,7 +86,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public List<ContactData> getContactList() {
-        List <ContactData> contacts = new ArrayList<>();
+        List<ContactData> contacts = new ArrayList<>();
         List<WebElement> rows = wd.findElements(By.xpath(".//*[@id='maintable']/tbody/tr[td]"));
 
         for (WebElement row : rows) {
@@ -94,6 +94,6 @@ public class ContactHelper extends HelperBase {
             contacts.add(contact);
         }
 
-        return  contacts;
+        return contacts;
     }
 }
