@@ -90,7 +90,7 @@ public class ContactHelper extends HelperBase {
         List<WebElement> rows = wd.findElements(By.xpath(".//*[@id='maintable']/tbody/tr[td]"));
 
         for (WebElement row : rows) {
-            ContactData contact = new ContactData(row.findElement(By.xpath("//td[3]")).getText(), null, row.findElement(By.xpath("//td[2]")).getText(), null, null, null, null, null, null);
+            ContactData contact = new ContactData(row.findElement(By.xpath(".//td[3]")).getText(), null, row.findElement(By.xpath(".//td[2]")).getText(), null, null, null, null, null, null);
             contacts.add(contact);
         }
 
