@@ -1,6 +1,7 @@
 package ru.stqa.test_courses.addressbook.model;
 
 public class ContactData {
+    private int id;
     private final String name;
     private final String middleName;
     private final String lastName;
@@ -12,6 +13,20 @@ public class ContactData {
     private String group;
 
     public ContactData(String name, String middleName, String lastName, String nickName, String company, String address, String phone, String email, String group) {
+        this.id = 0;
+        this.name = name;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.nickName = nickName;
+        this.company = company;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.group = group;
+    }
+
+    public ContactData(int id, String name, String middleName, String lastName, String nickName, String company, String address, String phone, String email, String group) {
+        this.id = id;
         this.name = name;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -60,28 +75,41 @@ public class ContactData {
     }
 
     @Override
-    public String toString() {
-        return "ContactData{" +
-                "name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         ContactData that = (ContactData) o;
 
+        if (id != that.id) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         return lastName != null ? lastName.equals(that.lastName) : that.lastName == null;
     }
 
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+
+        this.id = id;
+    }
 }
+// TODO: 11.04.2017 добавлен новый конструктор, заменить иквалс и хэш
