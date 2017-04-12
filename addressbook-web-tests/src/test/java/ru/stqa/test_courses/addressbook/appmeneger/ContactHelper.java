@@ -41,8 +41,13 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
 
-    public void initContactModification() {
-        click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+    /**
+     * Первая поправка +1 на выбор строки (начинается со второй), вторая поправка +1 на отсчет в массиве с нуля
+     */
+    public void initContactModification(int rN) {
+        rN += 2;
+        String rowNum = String.valueOf(rN);
+        click(By.xpath("//table[@id='maintable']/tbody/tr[" + rowNum + "]/td[8]/a/img"));
     }
 
     public void submitContactModification() {
