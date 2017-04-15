@@ -1,8 +1,8 @@
 package ru.stqa.test_courses.addressbook.tests;
 
 import org.openqa.selenium.remote.BrowserType;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 import ru.stqa.test_courses.addressbook.appmeneger.ApplicationManager;
 
 /**
@@ -10,17 +10,16 @@ import ru.stqa.test_courses.addressbook.appmeneger.ApplicationManager;
  */
 public class TestBase {
 
-    protected final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
+    protected static final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
 
-    @BeforeMethod
+    @BeforeSuite
     public void setUp() throws Exception {
         app.init();
     }
 
-    @AfterMethod
+    @AfterSuite
     public void tearDown() {
         app.stop();
     }
-
-    // TODO: 18.02.2017 Добит урок 3.10
+// TODO: 15.04.2017 Добит урок 4.10 (для групп)
 }
