@@ -1,42 +1,67 @@
 package ru.stqa.test_courses.addressbook.model;
 
 public class ContactData {
-    private int id;
-    private final String name;
-    private final String middleName;
-    private final String lastName;
-    private final String nickName;
-    private final String company;
-    private final String address;
-    private final String phone;
-    private final String email;
+    private int id = Integer.MAX_VALUE;
+    private String name;
+    private String middleName;
+    private String lastName;
+    private String nickName;
+    private String company;
+    private String address;
+    private String phone;
+    private String email;
     private String group;
 
-    public ContactData(String name, String middleName, String lastName, String nickName, String company, String address, String phone, String email, String group) {
-        this.id = Integer.MAX_VALUE;
+    public ContactData withName(String name) {
         this.name = name;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.nickName = nickName;
-        this.company = company;
-        this.address = address;
-        this.phone = phone;
-        this.email = email;
-        this.group = group;
+        return this;
     }
 
-    public ContactData(int id, String name, String middleName, String lastName, String nickName, String company, String address, String phone, String email, String group) {
-        this.id = id;
-        this.name = name;
+    public ContactData withMiddleName(String middleName) {
         this.middleName = middleName;
-        this.lastName = lastName;
-        this.nickName = nickName;
-        this.company = company;
-        this.address = address;
-        this.phone = phone;
-        this.email = email;
-        this.group = group;
+        return this;
     }
+
+    public ContactData withLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public ContactData withNickName(String nickName) {
+        this.nickName = nickName;
+        return this;
+    }
+
+    public ContactData withCompany(String company) {
+        this.company = company;
+        return this;
+    }
+
+    public ContactData withAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public ContactData withPhone(String phone) {
+        this.phone = phone;
+        return this;
+    }
+
+    public ContactData withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public ContactData withGroup(String group) {
+        this.group = group;
+        return this;
+    }
+
+    public ContactData withId(int id) {
+        this.id = id;
+        return this;
+    }
+
 
     public String getName() {
         return name;
@@ -105,8 +130,4 @@ public class ContactData {
         return id;
     }
 
-    public void setId(int id) {
-
-        this.id = id;
-    }
 }

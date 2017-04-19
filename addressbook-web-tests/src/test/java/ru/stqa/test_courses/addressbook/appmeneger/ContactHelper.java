@@ -67,8 +67,16 @@ public class ContactHelper extends HelperBase {
         wd.switchTo().alert().accept();
     }
 
+    /*
+    * метод returnToHomePage() заменен для сохранения единообразия,
+    * т. к. после модификации контакта не появляется ссылка возвращения на дом. страницу
+    * */
     public void returnToHomePage() {
-        click(By.linkText("home page"));
+//        click(By.linkText("home page"));
+        if (isElementPresent(By.id("maintable"))) {
+            return;
+        }
+        click(By.linkText("home"));
     }
 
     public void initCreateContact() {
@@ -111,10 +119,8 @@ public class ContactHelper extends HelperBase {
             int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
             String name = row.findElement(By.xpath(".//td[3]")).getText();
             String lastName = row.findElement(By.xpath(".//td[2]")).getText();
-            ContactData contact = new ContactData(id, name, null, lastName, null, null, null, null, null, null);
-            contacts.add(contact);
+            contacts.add(new ContactData().withId(id).withName(name).withLastName(lastName));
         }
-
         return contacts;
     }
 }
