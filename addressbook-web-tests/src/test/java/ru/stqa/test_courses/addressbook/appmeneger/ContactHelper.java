@@ -9,7 +9,9 @@ import ru.stqa.test_courses.addressbook.model.ContactData;
 import ru.stqa.test_courses.addressbook.model.GroupData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by i-ru on 18.02.2017.
@@ -114,6 +116,18 @@ public class ContactHelper extends HelperBase {
 
     public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList<>();
+        List<WebElement> rows = wd.findElements(By.xpath(".//*[@id='maintable']/tbody/tr[td]"));
+        for (WebElement row : rows) {
+            int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
+            String name = row.findElement(By.xpath(".//td[3]")).getText();
+            String lastName = row.findElement(By.xpath(".//td[2]")).getText();
+            contacts.add(new ContactData().withId(id).withName(name).withLastName(lastName));
+        }
+        return contacts;
+    }
+
+    public Set<ContactData> all() {
+        Set<ContactData> contacts = new HashSet<ContactData>();
         List<WebElement> rows = wd.findElements(By.xpath(".//*[@id='maintable']/tbody/tr[td]"));
         for (WebElement row : rows) {
             int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
