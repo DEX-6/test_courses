@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.test_courses.addressbook.model.ContactData;
+import ru.stqa.test_courses.addressbook.model.Contacts;
 
 import java.util.HashSet;
 import java.util.List;
@@ -109,8 +110,8 @@ public class ContactHelper extends HelperBase {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public Set<ContactData> all() {
-        Set<ContactData> contacts = new HashSet<ContactData>();
+    public Contacts all() {
+        Contacts contacts = new Contacts();
         List<WebElement> rows = wd.findElements(By.xpath(".//*[@id='maintable']/tbody/tr[td]"));
         for (WebElement row : rows) {
             int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
