@@ -17,9 +17,9 @@ public class ContactCreationTests extends TestBase {
                 .withNickName("DEX-6").withCompany("Космический Мозгоед").withAddress("планета Земля")
                 .withPhone("+79856405255").withEmail("dex-6@mail.ru").withGroup("test1");
         app.contact().create(contact);
-        Contacts after = app.contact().all();
+        assertThat(app.contact().count(), equalTo(before.size() + 1));
 
-        assertThat(after.size(), equalTo(before.size() + 1));
+        Contacts after = app.contact().all();
         assertThat(after, equalTo(before
                 .withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
     }
