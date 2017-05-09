@@ -8,9 +8,7 @@ import org.testng.Assert;
 import ru.stqa.test_courses.addressbook.model.ContactData;
 import ru.stqa.test_courses.addressbook.model.Contacts;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by i-ru on 18.02.2017.
@@ -19,6 +17,8 @@ public class ContactHelper extends HelperBase {
     public ContactHelper(WebDriver wd) {
         super(wd);
     }
+
+    private Contacts contactCashe = null;
 
     public void fillContactForm(ContactData contactData, boolean creation) {
         type(By.name("firstname"), contactData.getName());
@@ -46,7 +46,7 @@ public class ContactHelper extends HelperBase {
      * Первая поправка +1 на выбор строки (начинается со второй), вторая поправка +1 на отсчет в массиве с нуля
      */
     public void initContactModificationById(int id) {
-        wd.findElement(By.xpath("//a[@href='edit.php?id=" + id +"']")).click();
+        wd.findElement(By.xpath("//a[@href='edit.php?id=" + id + "']")).click();
     }
 
     public void submitContactModification() {
@@ -54,7 +54,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void selectContactById(int id) {
-        wd.findElement(By.cssSelector("input[value = '" + id +"']")).click();
+        wd.findElement(By.cssSelector("input[value = '" + id + "']")).click();
     }
 
     public void deleteSelectedContacts() {
@@ -85,6 +85,7 @@ public class ContactHelper extends HelperBase {
         initCreateContact();
         fillContactForm(contact, true);
         submitContactCreation();
+        contactCashe = null;
         returnToHomePage();
     }
 
@@ -92,6 +93,7 @@ public class ContactHelper extends HelperBase {
         initContactModificationById(contact.getId());
         fillContactForm(contact, false);
         submitContactModification();
+        contactCashe = null;
         returnToHomePage();
     }
 
@@ -99,6 +101,7 @@ public class ContactHelper extends HelperBase {
         selectContactById(contact.getId());
         deleteSelectedContacts();
         acceptAlert();
+        contactCashe = null;
         returnToHomePage();
     }
 
@@ -111,16 +114,17 @@ public class ContactHelper extends HelperBase {
     }
 
     public Contacts all() {
-        Contacts contacts = new Contacts();
+        if (contactCashe != null) {
+            return new Contacts(contactCashe);
+        }
+        contactCashe = new Contacts();
         List<WebElement> rows = wd.findElements(By.xpath(".//*[@id='maintable']/tbody/tr[td]"));
         for (WebElement row : rows) {
             int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
             String name = row.findElement(By.xpath(".//td[3]")).getText();
             String lastName = row.findElement(By.xpath(".//td[2]")).getText();
-            contacts.add(new ContactData().withId(id).withName(name).withLastName(lastName));
+            contactCashe.add(new ContactData().withId(id).withName(name).withLastName(lastName));
         }
-        return contacts;
+        return new Contacts(contactCashe);
     }
-
-
 }
