@@ -9,13 +9,16 @@ public class ContactData {
     private String company;
     private String address;
     private String phone;
+    private String allPhones;
     private String email_2;
     private String email_3;
     private String email;
+    private String allEmails;
     private String group;
     private String homePhone;
     private String mobilePhone;
     private String workPhone;
+
 
 
     public ContactData withName(String name) {
@@ -92,6 +95,16 @@ public class ContactData {
         return this;
     }
 
+    public ContactData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
+    }
+
+    public ContactData withAllEmails(String allEmails) {
+        this.allEmails = allEmails;
+        return this;
+    }
+
     public String getName() {
         return name;
     }
@@ -149,7 +162,13 @@ public class ContactData {
         return workPhone;
     }
 
+    public String getAllPhones() {
+        return allPhones;
+    }
 
+    public String getAllEmails() {
+        return allEmails;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
