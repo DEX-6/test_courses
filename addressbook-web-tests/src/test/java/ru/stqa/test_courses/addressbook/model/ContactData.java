@@ -1,5 +1,7 @@
 package ru.stqa.test_courses.addressbook.model;
 
+import java.io.File;
+
 public class ContactData {
     private int id = Integer.MAX_VALUE;
     private String name;
@@ -18,8 +20,7 @@ public class ContactData {
     private String homePhone;
     private String mobilePhone;
     private String workPhone;
-
-
+    private File photo;
 
     public ContactData withName(String name) {
         this.name = name;
@@ -70,6 +71,7 @@ public class ContactData {
         this.email_3 = email_3;
         return this;
     }
+
     public ContactData withGroup(String group) {
         this.group = group;
         return this;
@@ -102,6 +104,11 @@ public class ContactData {
 
     public ContactData withAllEmails(String allEmails) {
         this.allEmails = allEmails;
+        return this;
+    }
+
+    public ContactData withPhoto(File photo) {
+        this.photo = photo;
         return this;
     }
 
@@ -169,6 +176,11 @@ public class ContactData {
     public String getAllEmails() {
         return allEmails;
     }
+
+    public File getPhoto() {
+        return photo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
