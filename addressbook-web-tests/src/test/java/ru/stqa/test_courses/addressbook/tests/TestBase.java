@@ -10,7 +10,9 @@ import ru.stqa.test_courses.addressbook.appmeneger.ApplicationManager;
  */
 public class TestBase {
 
-    protected static final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
+    protected static final ApplicationManager app
+            = new ApplicationManager(System.getProperty("browser", BrowserType.FIREFOX));
+//    BrowserType.FIREFOX
 
     @BeforeSuite
     public void setUp() throws Exception {
@@ -21,5 +23,4 @@ public class TestBase {
     public void tearDown() {
         app.stop();
     }
-// TODO: 15.04.2017 Добит урок 4.10 (для групп)
 }
