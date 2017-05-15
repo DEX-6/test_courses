@@ -1,26 +1,40 @@
 package ru.stqa.test_courses.addressbook.model;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.File;
 
 public class ContactData {
     private int id = Integer.MAX_VALUE;
+    @Expose
     private String name;
+    @Expose
     private String middleName;
+    @Expose
     private String lastName;
+    @Expose
     private String nickName;
+    @Expose
     private String company;
+    @Expose
     private String address;
+    @Expose
     private String phone;
     private String allPhones;
     private String email_2;
     private String email_3;
+    @Expose
     private String email;
     private String allEmails;
+    @Expose
     private String group;
     private String homePhone;
     private String mobilePhone;
     private String workPhone;
     private File photo;
+//    @Expose
+//    private String photoPath = photo.getAbsolutePath();
+
 
     public ContactData withName(String name) {
         this.name = name;
