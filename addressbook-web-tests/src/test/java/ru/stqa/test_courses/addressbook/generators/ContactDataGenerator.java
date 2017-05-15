@@ -53,17 +53,17 @@ public class ContactDataGenerator {
     private void saveAsJson(List<ContactData> contacts, File file) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(contacts);
-        Writer writer = new FileWriter(file);
-        writer.write(json);
-        writer.close();
+        try (Writer writer = new FileWriter(file)) {
+            writer.write(json);
+        }
     }
 
     private List<ContactData> generateContact(int count) {
         List<ContactData> contact = new ArrayList<ContactData>();
         for (int i = 0; i < count; i++) {
             contact.add(new ContactData().withName(String.format("test %s", i)).withMiddleName(String.format("test %s", i)).withLastName(String.format("test %s", i))
-                            .withNickName(String.format("test %s", i)).withCompany(String.format("test %s", i)).withAddress(String.format("test %s", i))
-                            .withPhone(String.format("+7985640525%s", i)).withEmail(String.format("test %s", i)).withGroup(String.format("test %s", i)));
+                    .withNickName(String.format("test %s", i)).withCompany(String.format("test %s", i)).withAddress(String.format("test %s", i))
+                    .withPhone(String.format("+7985640525%s", i)).withEmail(String.format("test %s", i)).withGroup(String.format("test %s", i)));
 
         }
         return contact;
