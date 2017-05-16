@@ -1,37 +1,65 @@
 package ru.stqa.test_courses.addressbook.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
+    @Id
+    @Column(name = "id")
     private int id = Integer.MAX_VALUE;
     @Expose
+    @Column(name = "firstname")
     private String name;
     @Expose
+    @Column(name = "middlename")
     private String middleName;
     @Expose
+    @Column(name = "lastName")
     private String lastName;
     @Expose
+    @Transient
     private String nickName;
     @Expose
+    @Transient
     private String company;
     @Expose
+    @Transient
     private String address;
     @Expose
+    @Transient
     private String phone;
+    @Transient
     private String allPhones;
+    @Transient
     private String email_2;
+    @Transient
     private String email_3;
     @Expose
+    @Column(name = "email ")
+    @Type(type = "text")
     private String email;
+    @Transient
     private String allEmails;
     @Expose
+    @Transient
     private String group;
+    @Column(name = "home")
+    @Type(type = "text")
     private String homePhone;
+    @Column(name = "mobile")
+    @Type(type = "text")
     private String mobilePhone;
+    @Column(name = "work")
+    @Type(type = "text")
     private String workPhone;
-    private File photo;
+    @Column(name = "photo")
+    @Type(type = "text")
+    private String photo;
 //    @Expose
 //    private String photoPath = photo.getAbsolutePath();
 
@@ -122,7 +150,7 @@ public class ContactData {
     }
 
     public ContactData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
 
@@ -192,7 +220,7 @@ public class ContactData {
     }
 
     public File getPhoto() {
-        return photo;
+        return new File(photo);
     }
 
     @Override
