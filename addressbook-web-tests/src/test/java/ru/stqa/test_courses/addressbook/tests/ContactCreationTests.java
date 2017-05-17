@@ -38,18 +38,21 @@ public class ContactCreationTests extends TestBase {
 
     @Test(dataProvider = "validGroupsFromJson")
     public void testContactCreation(ContactData contact) {
-        app.goTo().homePage();
-        Contacts before = app.contact().all();
+
+//        Contacts before = app.contact().all();
 //        File photo = new File("src/test/resources/pic.jpg");
 //
 //        ContactData contact = new ContactData().withName("Денис").withMiddleName("Станиславович").withLastName("Воронцов")
 //                .withNickName("DEX-6").withCompany("Космический Мозгоед").withAddress("планета Земля")
 //                .withPhone("+79856405255").withEmail("dex-6@mail.ru").withGroup("test1").withPhoto(photo);
 //        ContactData contact = new ContactData().withName("Денис").withLastName("Воронцов").withPhoto(photo);
+        app.goTo().homePage();
+        Contacts before = app.db().contacts();
         app.contact().create(contact);
         assertThat(app.contact().count(), equalTo(before.size() + 1));
 
-        Contacts after = app.contact().all();
+//        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertThat(after, equalTo(before
                 .withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
     }
