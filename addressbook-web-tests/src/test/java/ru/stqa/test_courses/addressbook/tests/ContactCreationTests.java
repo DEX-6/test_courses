@@ -6,6 +6,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.test_courses.addressbook.model.ContactData;
 import ru.stqa.test_courses.addressbook.model.Contacts;
+import ru.stqa.test_courses.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -46,9 +47,10 @@ public class ContactCreationTests extends TestBase {
 //                .withNickName("DEX-6").withCompany("Космический Мозгоед").withAddress("планета Земля")
 //                .withPhone("+79856405255").withEmail("dex-6@mail.ru").withGroup("test1").withPhoto(photo);
 //        ContactData contact = new ContactData().withName("Денис").withLastName("Воронцов").withPhoto(photo);
+        Groups groups = app.db().groups();
         app.goTo().homePage();
         Contacts before = app.db().contacts();
-        app.contact().create(contact);
+        app.contact().create(contact.inGroup(groups.iterator().next()));
         assertThat(app.contact().count(), equalTo(before.size() + 1));
 
 //        Contacts after = app.contact().all();
