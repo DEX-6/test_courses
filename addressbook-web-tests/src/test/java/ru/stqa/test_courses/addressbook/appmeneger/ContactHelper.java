@@ -3,7 +3,10 @@ package ru.stqa.test_courses.addressbook.appmeneger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import ru.stqa.test_courses.addressbook.model.ContactData;
 import ru.stqa.test_courses.addressbook.model.Contacts;
@@ -182,5 +185,14 @@ public class ContactHelper extends HelperBase {
         selectContactById(contact.getId());
         new Select(wd.findElement(By.name("to_group"))).selectByValue(id);
         click(By.name("add"));
+    }
+
+    public void deleteContactFromGroup(ContactData contact, GroupData group) {
+        String id = Integer.toString(group.getId());
+        String removeContactName = "remove";
+        new Select(wd.findElement(By.name("group"))).selectByValue(id);
+        (new WebDriverWait(wd, 10)).until(ExpectedConditions.presenceOfElementLocated(By.name(removeContactName)));
+        selectContactById(contact.getId());
+        click(By.name(removeContactName));
     }
 }
