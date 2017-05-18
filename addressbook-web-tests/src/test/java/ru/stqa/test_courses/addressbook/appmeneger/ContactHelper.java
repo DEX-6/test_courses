@@ -7,6 +7,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.test_courses.addressbook.model.ContactData;
 import ru.stqa.test_courses.addressbook.model.Contacts;
+import ru.stqa.test_courses.addressbook.model.GroupData;
+import ru.stqa.test_courses.addressbook.model.Groups;
 
 import java.util.List;
 
@@ -32,9 +34,9 @@ public class ContactHelper extends HelperBase {
 //        attach(By.name("photo"), contactData.getPhoto());
 
         if (creation) {
-            if(contactData.getGroups().size() > 0){
+            if (contactData.getGroups().size() > 0) {
                 Assert.assertTrue(contactData.getGroups().size() == 1);
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
             }
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
@@ -56,6 +58,7 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.xpath("//a[@href='view.php?id=" + id + "']")).click();
 
     }
+
     public void submitContactModification() {
         click(By.name("update"));
     }
@@ -170,8 +173,14 @@ public class ContactHelper extends HelperBase {
         return contactInfo;
     }
 
-    public void selectAllContacts(){
+    public void selectAllContacts() {
         click(By.id("MassCB"));
     }
 
+    public void addInGroup(ContactData contact, GroupData group) {
+        String id = Integer.toString(group.getId());
+        selectContactById(contact.getId());
+        new Select(wd.findElement(By.name("to_group"))).selectByValue(id);
+        click(By.name("add"));
+    }
 }
