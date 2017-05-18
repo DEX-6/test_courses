@@ -19,7 +19,7 @@ public class ContactDeletionTests extends TestBase {
         if (app.contact().all().size() == 0) {
             app.contact().create(new ContactData().withName("Денис").withMiddleName("Станиславович").withLastName("Воронцов")
                     .withNickName("DEX-6").withCompany("Космический Мозгоед").withAddress("планета Земля")
-                    .withPhone("+79856405255").withEmail("dex-6@mail.ru").withGroup("test1"));
+                    .withPhone("+79856405255").withEmail("dex-6@mail.ru"));
         }
     }
 
