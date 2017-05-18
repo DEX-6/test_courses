@@ -27,29 +27,46 @@ public class ContactAddInGroup extends TestBase {
                     .withNickName("DEX-6").withCompany("Космический Мозгоед").withAddress("планета Земля")
                     .withPhone("+79856405255").withEmail("dex-6@mail.ru"));
         }
+
+        if (app.db().groups().size() == 0) {
+            String name =  Integer.toString( 1 + (int) (Math.random() * 1000));
+            GroupData group = new GroupData().withName(name).withFooter(name).withHeader(name);
+            app.goTo().groupPage();
+            app.group().create(group);
+        }
     }
 
     @Test
     public void testContactAddInGroup() {
         GroupData addedGroup;
         Contacts beforeContact;
+        Contacts afterContact;
         beforeContact = app.db().contacts();
         Groups addedGroups = app.db().groups();
 
-        app.goTo().homePage();
         ContactData modifiedContact = beforeContact.iterator().next();
+        int idModifiedContact = modifiedContact.getId();
         addedGroups.removeAll(modifiedContact.getGroups());
-        addedGroup = addedGroups.iterator().next();
+        if (addedGroups.size() == 0) {
+            String name =  Integer.toString( 1 + (int) (Math.random() * 1000));
+            addedGroup = new GroupData().withName(name).withFooter(name).withHeader(name);
+            app.goTo().groupPage();
+            app.group().create(addedGroup);
+            addedGroups = app.db().groups();
+            addedGroups.removeAll(modifiedContact.getGroups());
+            addedGroup = addedGroups.iterator().next();
+
+        } else {
+            addedGroup = addedGroups.iterator().next();
+        }
+
+        app.goTo().homePage();
         app.contact().addInGroup(modifiedContact, addedGroup);
 
-        for (int i = 0; i < modifiedContact.getGroups().size(); i++){
-            if (modifiedContact.getGroups().iterator().hasNext()) {
-                System.out.println("группа в контакте " + i + " " + modifiedContact.getGroups().iterator().next());
-            }
-        }
-        System.out.println(addedGroup);
+        afterContact = app.db().contacts();
+        ContactData afterModifiedContact = afterContact.iterator().next().withId(idModifiedContact);
 
-        Assert.assertTrue(modifiedContact.getGroups().contains(addedGroup));
+        Assert.assertTrue(afterModifiedContact.getGroups().contains(addedGroup));
 
     }
 }
