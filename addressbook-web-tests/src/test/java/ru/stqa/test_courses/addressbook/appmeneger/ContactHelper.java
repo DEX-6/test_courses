@@ -3,7 +3,6 @@ package ru.stqa.test_courses.addressbook.appmeneger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -11,9 +10,10 @@ import org.testng.Assert;
 import ru.stqa.test_courses.addressbook.model.ContactData;
 import ru.stqa.test_courses.addressbook.model.Contacts;
 import ru.stqa.test_courses.addressbook.model.GroupData;
-import ru.stqa.test_courses.addressbook.model.Groups;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by i-ru on 18.02.2017.
@@ -170,9 +170,45 @@ public class ContactHelper extends HelperBase {
                 .withAddress(address);
     }
 
+    public String infoFromEditFormWithAddedPrefixes(ContactData contact) {
+        String infoWithPrefixes;
+        initContactModificationById(contact.getId());
+
+        String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+        String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+
+        String FLName = firstname + " " + lastname;
+
+        String home = wd.findElement(By.name("home")).getAttribute("value");
+        if (!home.equals("")) {
+            home = "H: " + home;
+        }
+        String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+        if (!mobile.equals("")) {
+            mobile = "M: " + mobile;
+        }
+        String work = wd.findElement(By.name("work")).getAttribute("value");
+        if (!work.equals("")) {
+            work = "W: " + work;
+        }
+
+        String email = wd.findElement(By.name("email")).getAttribute("value");
+        String email_2 = wd.findElement(By.name("email2")).getAttribute("value");
+        String email_3 = wd.findElement(By.name("email3")).getAttribute("value");
+
+        String address = wd.findElement(By.name("address")).getAttribute("value");
+
+        infoWithPrefixes = Arrays.asList(FLName, address, home, mobile, work, email, email_2, email_3)
+                .stream().filter((s) -> !s.equals("")).collect(Collectors.joining(""));
+
+        wd.navigate().back();
+        return infoWithPrefixes;
+    }
+
     public String infoFromDetailForm(ContactData contact) {
         initViewContact(contact.getId());
         String contactInfo = wd.findElement(By.id("content")).getText();
+        wd.navigate().back();
         return contactInfo;
     }
 

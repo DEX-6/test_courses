@@ -16,7 +16,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 /**
  * Created by i-ru on 18.05.2017.
  */
-public class ContacrDetailInformationTests extends TestBase {
+public class ContactDetailInformationTests extends TestBase {
 
 
     @BeforeMethod()
@@ -36,19 +36,14 @@ public class ContacrDetailInformationTests extends TestBase {
     public void testContacrDetailInformation() {
         app.goTo().homePage();
         ContactData contact = app.contact().all().iterator().next();
-        String contactInfoFrometailForm = app.contact().infoFromDetailForm(contact);
-        assertThat(mergeInfo(contact), equalTo(cleaned(contactInfoFrometailForm)));
+        String contactInfoFromDetailForm = app.contact().infoFromDetailForm(contact);
+        String contactInfoFromEditForm = app.contact().infoFromEditFormWithAddedPrefixes(contact);
+
+        assertThat(contactInfoFromEditForm, equalTo(cleaned(contactInfoFromDetailForm)));
     }
 
-    public String mergeInfo(ContactData contact) {
-        return Arrays.asList(contact.getName(), contact.getLastName(), contact.getAddress(), contact.getAllPhones())
-                .stream().filter((s) -> !s.equals(""))
-                .map(ContacrDetailInformationTests::cleaned)
-                .collect(Collectors.joining(""));
-    }
-
-    public static String cleaned(String phone) {
-        return phone.replaceAll("(M:)", "").replaceAll("(W:)", "").replaceAll("(H:)", "").replaceAll("[\\s]", "");
+    public static String cleaned(String contactInfo) {
+        return contactInfo.replaceAll("\\n", "");
     }
 
 }
